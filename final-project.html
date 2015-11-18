@@ -1,0 +1,29 @@
+<head>
+  <title>Final Project</title>
+</head>
+
+<body>
+  <div class="container">
+      <header>
+        <h1>Where my final project goes</h1>
+      </header>
+
+      <ul>
+        {{#each tasks}}
+          {{> task}}
+        {{/each}}
+      </ul>
+
+#      {{> hello}}
+  </div>
+
+</body>
+
+<template name="task">
+  <li>{{text}}</li>
+</template>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
