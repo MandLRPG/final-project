@@ -1,36 +1,56 @@
-<head>
-  <title>Final Project</title>
-</head>
+<!-- Template that is used for all pages -->
+<template name="main">
+  {{> navigation}}
+  {{> yield}}
+  <hr />
+  <div id="copyright">
+    <p>Copyright &copy; Kristopher Nakamura, 2015.</p>
+  </div>
+</template>
 
-<body>
+<!-- Homepage contents -->
+<template name="home">
+  <head>
+    <title>Final Project</title>
+  </head>
+
+  <body>
   <div class="container">
-      <header>
-        <h1>Where my final project goes ({{incompleteCount}})</h1>
+    <header>
+      <h1>Where my final project goes ({{incompleteCount}})</h1>
 
-        <label class="hide-completed">
-          <input type="checkbox" checked="{{hideCompleted}}" />
-          Hide Completed Tasks
-        </label>
+      <label class="hide-completed">
+        <input type="checkbox" checked="{{hideCompleted}}" />
+        Hide Completed Tasks
+      </label>
 
-        {{> loginButtons}}
+      {{> loginButtons}}
 
-        {{#if currentUser}}
-        <form class="new-task">
-          <input type="text" name="text" placeholder="Type to add new tasks" />
-        </form>
-        {{/if}}
-      </header>
+      {{#if currentUser}}
+      <form class="new-task">
+        <input type="text" name="text" placeholder="Type to add new tasks" />
+      </form>
+      {{/if}}
+    </header>
 
-      <ul>
-        {{#each tasks}}
-          {{> task}}
-        {{/each}}
-      </ul>
+    <ul>
+      {{#each tasks}}
+      {{> task}}
+      {{/each}}
+    </ul>
 
-      {{> hello}}
+    {{> hello}}
   </div>
 
-</body>
+  </body>
+</template>
+
+<!-- About page -->
+<template name="about">
+  <p>Where my about page goes.</p>
+  <p>Used: Meteor, Iron Router, HTML 5, CSS 3.0</p>
+  <p>Heavy thanks to w3schools, stackoverflow, and Becca</p>
+</template>
 
 <template name="task">
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
@@ -50,10 +70,45 @@
 
     <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
-<!--  <li>{{text}}</li> -->
+</template>
+
+<!-- Template for the nagivation bar -->
+<template name="navigation">
+  {{> navItems}}
+</template>
+
+<template name="navItems">
+  <ul class="navbar">
+    <li class="{{activeIfTemplateIs 'home'}}"><a href="{{pathFor route='home'}}">Home</a></li>
+    <li class="{{activeIfTemplateIs 'about'}}"><a href="{{pathFor route='about'}}">About</a></li>
+    <li class="{{activeIfTemplateIs 'contactus'}}"><a href="{{pathFor route='contactus'}}">Contact Us</a></li>
+    <ul class="login-register">
+      <li class="{{activeIfTemplateIs 'register'}}"><a href="{{pathFor route='register'}}">Register</a></li>
+      <li class="{{activeIfTemplateIs 'login'}}"><a href="{{pathFor route='login'}}">Login</a></li>
+    </ul>
+  </ul>
+</template>
+
+<!-- Page to display if user tries to go to a non-existent page -->
+<template name="404error">
+  <div id="error-background"></div>
+  <div id="error404">
+    <h2>Whoops you found a 404 page :(</h2>
+    <p>Sorry it looks like you ended up in a page that doesn't exist.  If a link sent you here,
+    please contact us with how you got to this page.</p>
+    <div id="error-image">
+      <img src="final-project/caution.png" alt="caution sign image">
+    </div>
+  </div>
+</template>
+
+<!-- If a slow connection or large page to load, shows loading screen -->
+<template name="loading">
+  {{> spinner}}
 </template>
 
 <template name="hello">
   <button>Click Me</button>
   <p>You've pressed the button {{counter}} times.</p>
 </template>
+

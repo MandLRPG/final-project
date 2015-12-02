@@ -25,6 +25,38 @@ body {
   background: white;
 }
 
+#error404 {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: 1%;
+  padding-right: 1%;
+  background: white;
+}
+
+#error-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-image: url("final-project/stripes.jpeg");
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  filter: alpha(opacity=10); /* For earlier ver. of IE */
+}
+
+#error-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+#copyright {
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+}
+
 header {
   background: #d2edf4;
   background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
@@ -42,6 +74,10 @@ h1 {
   margin-bottom: 10px;
   display: inline-block;
   margin-right: 1em;
+}
+
+h2 {
+  text-align: center;
 }
 
 form {
@@ -65,9 +101,24 @@ form {
 }
 
 ul {
+  list-style-type: none;
   margin: 0;
   padding: 0;
   background: white;
+}
+
+ul.navbar {
+  list-style-type: none;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: #ddd;
+}
+
+ul.login-register {
+  list-style-type: none;
+  float: right;
+  background-color: #ddd;
 }
 
 .delete {
@@ -101,6 +152,29 @@ li.checked .text {
 li.private {
   background: #eee;
   border-color: #ddd;
+}
+
+li.navbar {
+  padding: 0px;
+  float: left;
+}
+
+li.navbar a {
+  display: block;
+  color: inherit;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li.navbar a:hover {
+  background-color: #111;
+  color: white;
+}
+
+li.active {
+  background-color: #111;
+  color: white;
 }
 
 header .hide-completed {

@@ -1,3 +1,9 @@
+Router.configure({
+  layoutTemplate: 'main',
+  notFoundTemplate: '404error',
+  loadingTemplate: 'loading'
+});
+
 Tasks = new Mongo.Collection("tasks");
 
 if (Meteor.isClient) {
@@ -5,7 +11,7 @@ if (Meteor.isClient) {
   Session.setDefault('counter', 0);
   Meteor.subscribe("tasks");
 
-  Template.body.helpers({
+  Template.home.helpers({
     tasks: function() {
       if(Session.get("hideCompleted")) {
         // If hide completed is checked, filter tasks
@@ -29,7 +35,7 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.body.events({
+  Template.home.events({
     "submit .new-task": function(event) {
       //Prevent default browser form submit
       event.preventDefault();
@@ -99,6 +105,16 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.navItems.helpers({
+    activeIfTemplateIs: function(template) {
+      var currentRoute = Router.current();
+      if(currentRoute === null || template !== currentRoute.lookupTemplate()) {
+        return 'navbar';
+      }
+      return 'navbar active';
+    }
+  });
+
   Template.hello.events({
     'click button': function () {
       // increment the counter when button is clicked
@@ -139,7 +155,7 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
-    Tasks.update(taskId, { $set: { checked: setCheked} });
+    Tasks.update(taskId, { $set: { checked: setChecked} });
   },
 
   setPrivate: function (taskId, setToPrivate) {
@@ -171,3 +187,27 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+
+Router.route('/', {
+  name: 'home',
+  template: 'home'
+});
+
+Router.route('/about', {
+  template: 'about'
+});
+
+Router.route('/register', {
+  template: 'register',
+  name: 'register'
+});
+
+Router.route('/login', {
+  template: 'login',
+  name: 'login'
+});
+
+Router.route('/contactus', {
+  template: 'contactus',
+  name: 'contactus'
+});
