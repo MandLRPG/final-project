@@ -35,13 +35,14 @@ body {
 
 #error-background {
   position: fixed;
+  z-index: -1;
   top: 0;
   left: 0;
   background-image: url("final-project/stripes.jpeg");
   width: 100%;
   height: 100%;
-  opacity: 0.1;
-  filter: alpha(opacity=10); /* For earlier ver. of IE */
+  opacity: 0.2;
+  filter: alpha(opacity=20); /* For earlier ver. of IE */
 }
 
 #error-image {

@@ -1,7 +1,7 @@
 Router.configure({
-  layoutTemplate: 'main',
   notFoundTemplate: '404error',
-  loadingTemplate: 'loading'
+  layoutTemplate: 'main'
+  //loadingTemplate: 'loading'
 });
 
 Tasks = new Mongo.Collection("tasks");
@@ -102,6 +102,48 @@ if (Meteor.isClient) {
   Template.hello.helpers({
     counter: function () {
       return Session.get('counter');
+    }
+  });
+
+  Template.register.events({
+    'submit form': function() {
+      event.preventDefault();
+      var email = $('[name=email]').val();
+      var password = $('[name=password]').val();
+      Accounts.createUser({
+        email: email,
+        password: password
+      }, function(error) {
+          if(error) {
+            console.log(error.reason);
+          } else {
+            Router.go('about');
+          }
+      });
+      Router.go('about');
+    }
+  });
+
+  Template.login.events({
+    'submit form': function(event) {
+      event.preventDefault();
+      var email = $('[name=email]').val();
+      var password = $('[name=password]').val();
+      Meteor.loginWithPassword(email, password, function() {
+        if(error) {
+          console.log(error.reason);
+        } else {
+          Router.go('about');
+        }
+      });
+    }
+  });
+
+  Template.navigation.events({
+    'click .logout': function(events) {
+      event.preventDefault();
+      Meteor.logout();
+      Router.go('login');
     }
   });
 

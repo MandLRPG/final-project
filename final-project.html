@@ -1,6 +1,5 @@
 <!-- Template that is used for all pages -->
 <template name="main">
-  {{> navigation}}
   {{> yield}}
   <hr />
   <div id="copyright">
@@ -10,6 +9,7 @@
 
 <!-- Homepage contents -->
 <template name="home">
+  {{> navigation}}
   <head>
     <title>Final Project</title>
   </head>
@@ -47,9 +47,55 @@
 
 <!-- About page -->
 <template name="about">
+  {{> navigation}}
   <p>Where my about page goes.</p>
-  <p>Used: Meteor, Iron Router, HTML 5, CSS 3.0</p>
+  <p>Used: Meteor, Spacebars, Iron Router, HTML 5, CSS 3.0</p>
   <p>Heavy thanks to w3schools, stackoverflow, and Becca</p>
+</template>
+
+<!-- Contact us page -->
+<template name="contactus">
+  {{> navigation}}
+  <p>Where my contact us page goes.</p>
+</template>
+
+<!-- Registration page-->
+<template name="register">
+  {{> navigation}}
+  <div class="container">
+    <p>Where my registration page goes.</p>
+    <form class="register">
+      <p>Email: <input type="email" name="email"></p>
+      <p>Password: <input type="password" name="password"></p>
+      <p><input type="submit" value="Register"></p>
+    </form>
+  </div>
+</template>
+
+<!-- Login page -->
+<template name="login">
+  {{> navigation}}
+  <div class="container">
+    <p>Where my login page goes.</p>
+    <form class="login">
+      <p>Email: <input type="email" name="email"></p>
+      <p>Password: <input type="password" name="password"></p>
+      <p><input type="submit" value="Login"></p>
+    </form>
+  </div>
+</template>
+
+<!-- Page to display if user tries to go to a non-existent page -->
+<template name="404error">
+  <div id="error-background"></div>
+  <div id="error404">
+    <h2>Whoops you found a 404 page :(</h2>
+    <p>Sorry it looks like you ended up in a page that doesn't exist.  If you think this is an error,
+      please <a href="{{pathFor route='contactus'}}">contact us</a> with how you got to this page.</p>
+    <div id="error-image">
+      <img src="final-project/caution.png" alt="caution sign image">
+    </div>
+  </div>
 </template>
 
 <template name="task">
@@ -83,29 +129,20 @@
     <li class="{{activeIfTemplateIs 'about'}}"><a href="{{pathFor route='about'}}">About</a></li>
     <li class="{{activeIfTemplateIs 'contactus'}}"><a href="{{pathFor route='contactus'}}">Contact Us</a></li>
     <ul class="login-register">
-      <li class="{{activeIfTemplateIs 'register'}}"><a href="{{pathFor route='register'}}">Register</a></li>
-      <li class="{{activeIfTemplateIs 'login'}}"><a href="{{pathFor route='login'}}">Login</a></li>
+      {{#if currentUser}}
+        <li class="navbar"><a href="#" class="logout">Logout</a></li>
+      {{else}}
+        <li class="{{activeIfTemplateIs 'register'}}"><a href="{{pathFor route='register'}}">Register</a></li>
+        <li class="{{activeIfTemplateIs 'login'}}"><a href="{{pathFor route='login'}}">Login</a></li>
+      {{/if}}
     </ul>
   </ul>
 </template>
 
-<!-- Page to display if user tries to go to a non-existent page -->
-<template name="404error">
-  <div id="error-background"></div>
-  <div id="error404">
-    <h2>Whoops you found a 404 page :(</h2>
-    <p>Sorry it looks like you ended up in a page that doesn't exist.  If a link sent you here,
-    please contact us with how you got to this page.</p>
-    <div id="error-image">
-      <img src="final-project/caution.png" alt="caution sign image">
-    </div>
-  </div>
-</template>
-
-<!-- If a slow connection or large page to load, shows loading screen -->
+<!-- If a slow connection or large page to load, shows loading screen
 <template name="loading">
   {{> spinner}}
-</template>
+</template> -->
 
 <template name="hello">
   <button>Click Me</button>
