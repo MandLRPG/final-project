@@ -9,12 +9,12 @@
 
 <!-- Homepage contents -->
 <template name="home">
-  {{> navigation}}
   <head>
     <title>Final Project</title>
   </head>
 
   <body>
+  {{> navigation}}
   <div class="container">
     <header>
       <h1>Where my final project goes ({{incompleteCount}})</h1>
@@ -48,15 +48,19 @@
 <!-- About page -->
 <template name="about">
   {{> navigation}}
-  <p>Where my about page goes.</p>
-  <p>Used: Meteor, Spacebars, Iron Router, HTML 5, CSS 3.0</p>
-  <p>Heavy thanks to w3schools, stackoverflow, and Becca</p>
+  <div class="container">
+    <p>Where my about page goes.</p>
+    <p>Used: Meteor, Spacebars, Iron Router, HTML 5, CSS 3.0, Bootstrap 3</p>
+    <p>Heavy thanks to w3schools, stackoverflow, and Becca</p>
+  </div>
 </template>
 
 <!-- Contact us page -->
 <template name="contactus">
   {{> navigation}}
-  <p>Where my contact us page goes.</p>
+  <div class="container">
+    <p>Where my contact us page goes.</p>
+  </div>
 </template>
 
 <!-- Registration page-->
@@ -65,8 +69,10 @@
   <div class="container">
     <p>Where my registration page goes.</p>
     <form class="register">
+      <p>Username: <input type="text" name="username"></p>
       <p>Email: <input type="email" name="email"></p>
       <p>Password: <input type="password" name="password"></p>
+      <p>Re-enter Password: <input type="password" name="password2"></p>
       <p><input type="submit" value="Register"></p>
     </form>
   </div>
@@ -93,7 +99,7 @@
     <p>Sorry it looks like you ended up in a page that doesn't exist.  If you think this is an error,
       please <a href="{{pathFor route='contactus'}}">contact us</a> with how you got to this page.</p>
     <div id="error-image">
-      <img src="final-project/caution.png" alt="caution sign image">
+      <img src="/final-project/caution.jpg" alt="caution sign image">
     </div>
   </div>
 </template>
@@ -124,19 +130,33 @@
 </template>
 
 <template name="navItems">
-  <ul class="navbar">
-    <li class="{{activeIfTemplateIs 'home'}}"><a href="{{pathFor route='home'}}">Home</a></li>
-    <li class="{{activeIfTemplateIs 'about'}}"><a href="{{pathFor route='about'}}">About</a></li>
-    <li class="{{activeIfTemplateIs 'contactus'}}"><a href="{{pathFor route='contactus'}}">Contact Us</a></li>
-    <ul class="login-register">
-      {{#if currentUser}}
-        <li class="navbar"><a href="#" class="logout">Logout</a></li>
-      {{else}}
-        <li class="{{activeIfTemplateIs 'register'}}"><a href="{{pathFor route='register'}}">Register</a></li>
-        <li class="{{activeIfTemplateIs 'login'}}"><a href="{{pathFor route='login'}}">Login</a></li>
-      {{/if}}
+  <div class="container-fluid">
+
+    <ul class="navbar nopadding">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-1">
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="collapse-1">
+        <li class="{{activeIfTemplateIs 'home'}}"><a href="{{pathFor route='home'}}">Home</a></li>
+        <li class="{{activeIfTemplateIs 'about'}}"><a href="{{pathFor route='about'}}">About</a></li>
+        <li class="{{activeIfTemplateIs 'contactus'}}"><a href="{{pathFor route='contactus'}}">Contact Us</a></li>
+        <ul class="login-register">
+          {{#if currentUser}}
+          <li class="navbar"><a href="#" class="logout">Logout</a></li>
+          {{else}}
+          <li class="{{activeIfTemplateIs 'register'}}"><a href="{{pathFor route='register'}}">Register</a></li>
+          <li class="{{activeIfTemplateIs 'login'}}"><a href="{{pathFor route='login'}}">Login</a></li>
+          {{/if}}
+        </ul>
+      </div>
     </ul>
-  </ul>
+  </div>
 </template>
 
 <!-- If a slow connection or large page to load, shows loading screen

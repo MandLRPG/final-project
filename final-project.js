@@ -105,31 +105,41 @@ if (Meteor.isClient) {
     }
   });
 
+  // Runs the Register actions on the register page
   Template.register.events({
-    'submit form': function() {
+    'submit form': function(event) {
       event.preventDefault();
+      var username = $('[name=username]').val();
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
-      Accounts.createUser({
-        email: email,
-        password: password
-      }, function(error) {
+      var repassword = $('[name=password2]').val();
+
+      if(password == repassword) {
+        Accounts.createUser({
+          username: username,
+          email: email,
+          password: password
+        }, function(error) {
           if(error) {
             console.log(error.reason);
           } else {
             Router.go('about');
           }
-      });
-      Router.go('about');
+        });
+        Router.go('about');
+      } else {
+        alert("The passwords you entered do not match!");
+      }
     }
   });
 
+  // Runs the login actions on the login page
   Template.login.events({
     'submit form': function(event) {
       event.preventDefault();
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
-      Meteor.loginWithPassword(email, password, function() {
+      Meteor.loginWithPassword(email, password, function(error) {
         if(error) {
           console.log(error.reason);
         } else {
@@ -139,8 +149,9 @@ if (Meteor.isClient) {
     }
   });
 
+  // Logs the user out when pressing logout button
   Template.navigation.events({
-    'click .logout': function(events) {
+    'click .logout': function(event) {
       event.preventDefault();
       Meteor.logout();
       Router.go('login');
