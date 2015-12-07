@@ -7,49 +7,58 @@
   </div>
 </template>
 
+
 <!-- Homepage contents -->
 <template name="home">
-  <body>
   {{> navigation}}
   <div class="container">
-    <header>
-      <h1>Where my final project goes ({{incompleteCount}})</h1>
-
-      <label class="hide-completed">
-        <input type="checkbox" checked="{{hideCompleted}}" />
-        Hide Completed Tasks
-      </label>
-
-      {{> loginButtons}}
-
-      {{#if currentUser}}
-      <form class="new-task">
-        <input type="text" name="text" placeholder="Type to add new tasks" />
-      </form>
-      {{/if}}
-    </header>
-
-    <ul>
-      {{#each tasks}}
-      {{> task}}
-      {{/each}}
-    </ul>
-
-    {{> hello}}
+    <h3>Kris Nakamura's Home Page!</h3>
+    <form class="home">
+      <p>You've come to my website because you're me, or you've stumbled here on accident (most likely the formor).
+      My website currently consists of everything visible on the navigation bar plus a 'chat room' that can only
+      be accessed if you are logged in.</p>
+      <p>WARNING:  If you somehow stumbled upon my page from pure coincidence, please know that my site currently
+      does not implement https or any form of 'good' security.  Please do not enter any information that may
+      be compromising to your other accounts.</p>
+      <br>
+      <p>I left this clicker in because I wanted to:</p>
+      {{> hello}}
+    </form>
   </div>
-
-  </body>
 </template>
+
 
 <!-- About page -->
 <template name="about">
   {{> navigation}}
   <div class="container">
-    <p>Where my about page goes.</p>
-    <p>Used: Meteor, Spacebars, Iron Router, HTML 5, CSS 3.0, Bootstrap 3</p>
-    <p>Heavy thanks to w3schools, stackoverflow, and Becca</p>
+    <h3>About the Website</h3>
+    <form class="about">
+      <p><b>Technologies Used:</b></p>
+      <ul class="reg-ul">
+        <li class="reg-list">Meteor 1.2.1 - Framework that runs this website</li>
+        <li class="reg-list">Spacebars - Web template system that gives Meteor more power</li>
+        <li class="reg-list">Iron Router 1.0.11 - Easily manages multi-page Meteor sites</li>
+        <li class="reg-list">HTML 5 - Hypertext markup language</li>
+        <li class="reg-list">CSS 3.0 - Cascading style sheets</li>
+        <li class="reg-list">Bootstrap 3 - Twitter framework Meteor uses for making things 'pretty'</li>
+      </ul>
+      <br>
+      <p><b>Heavy Thanks To:</b></p>
+      <ul class="reg-ul">
+        <li class="reg-list">W3Schools</li>
+        <li class="reg-list">Stack Overflow</li>
+        <li class="reg-list">Becca (friend for very slight advice)</li>
+      </ul>
+    </form>
+    <hr />
+    <h3>About Me!</h3>
+    <form class="about">
+      <p>Hi!  My name is Kris Nakamura and I am a student going for a BS in Computer Science.  (More details later)</p>
+    </form>
   </div>
 </template>
+
 
 <!-- Contact us page -->
 <template name="contactus">
@@ -64,20 +73,38 @@
       <hr />
       <p>Please contact only for the following reasons:</p>
       <ol>
-        <li class="reg-list">Issues with the website.</li>
-        <li class="reg-list">Questions about the website.</li>
-        <li class="reg-list">Career recruitment interests.</li>
+        <li class="contact-list">Issues with the website.</li>
+        <li class="contact-list">Questions about the website.</li>
+        <li class="contact-list">Career recruitment interests.</li>
       </ol>
     </form>
   </div>
 </template>
 
+
+<!-- 'Chat' page -->
 <template name="chat">
   {{> navigation}}
   <div class="container">
-    <!-- Build a chat platform like Slack here -->
+    <form class="chat">
+      <h3>Chat with all your friends!</h3>
+      <h4>Play nice and keep it clean.</h4>
+      <hr />
+      <form class="new-chat">
+        <input type="text" name="text" placeholder="Type anything you want as long as it's clean and nice!" />
+      </form>
+
+      <form class="chat-box">
+        <ul>
+          {{#each chatlog}}
+          {{> message}}
+          {{/each}}
+        </ul>
+      </form>
+    </form>
   </div>
 </template>
+
 
 <!-- Registration page-->
 <template name="register">
@@ -85,14 +112,19 @@
   <div class="container">
     <h3>Register for my website to access specific content</h3>
     <form class="register">
-      <p>Username: <input type="text" name="username"></p>
-      <p>Email: <input type="email" name="email"></p>
-      <p>Password: <input type="password" name="password"></p>
-      <p>Re-enter Password: <input type="password" name="password2"></p>
+      <p>Username:</p>
+        <input type="text" name="username">
+      <p>Email:</p>
+        <input type="email" name="email">
+      <p>Password:</p>
+        <input type="password" name="password">
+      <p>Re-enter Password:</p>
+        <input type="password" name="password2">
       <p><input type="submit" id="reg-button" value="Register"></p>
     </form>
   </div>
 </template>
+
 
 <!-- Login page -->
 <template name="login">
@@ -100,13 +132,16 @@
   <div class="container">
     <h3>Login as a Registered User or a Guest</h3>
     <form class="login">
-      <p>Email: <input type="email" name="email"></p>
-      <p>Password: <input type="password" name="password"></p>
+      <p>Email:</p>
+        <p><input type="email" name="email"></p>
+      <p>Password:</p>
+        <p><input type="password" name="password"></p>
       <p><input type="submit" value="Login"><button type="button" id="forgot-pw">Forgot Password?</button></p>
       <p><input type="button" id="guest-login" value="Login as Guest (less functionality)"></p>
     </form>
   </div>
 </template>
+
 
 <!-- Page to display if user tries to go to a non-existent page -->
 <template name="404error">
@@ -121,31 +156,14 @@
   </div>
 </template>
 
-<template name="task">
-  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-    <button class="delete">&times;</button>
 
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-
-    {{#if isOwner}}
-      <button class="toggle-private">
-        {{#if private}}
-          Private
-        {{else}}
-          Public
-        {{/if}}
-      </button>
-    {{/if}}
-
-    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
-  </li>
-</template>
-
-<!-- Template for the nagivation bar -->
+<!-- Template for the nagivation bar separate in case I ever want to format things differently-->
 <template name="navigation">
   {{> navItems}}
 </template>
 
+
+<!-- Template that contains all details and items of the navigation bar -->
 <template name="navItems">
   <div class="container-fluid">
 
@@ -184,8 +202,34 @@
   {{> spinner}}
 </template> -->
 
+<template name="message">
+  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+    <button class="delete">&times;</button>
+
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+
+    {{#if isOwner}}
+    <button class="toggle-private">
+      {{#if private}}
+      Private
+      {{else}}
+      Public
+      {{/if}}
+    </button>
+    {{/if}}
+
+    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+  </li>
+</template>
+
+
 <template name="hello">
   <button>Click Me</button>
   <p>You've pressed the button {{counter}} times.</p>
 </template>
 
+<!-- Code placeholder
+<label class="hide-completed">
+  <input type="checkbox" checked="{{hideCompleted}}" />
+  Hide Completed Tasks
+</label>   -->
