@@ -11,25 +11,51 @@ if (Meteor.isClient) {
   Session.setDefault('counter', 0);
   Meteor.subscribe("chatlog");
 
-  Template.chat.helpers({
-    chatlog: function() {
-      return Chat.find({}, {sort: {createdAt: -1}});
+  Template.chatting.helpers({
+    chatlog: function () {
+      if (Session.get("hideChecked")) {
+        // If hide checked is checked, filter tasks
+        return Chat.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
+
+      } else {
+        // Otherwise, return all of the tasks
+        return Chat.find({}, {sort: {createdAt: -1}});
+      }
+    },
+
+    hideChecked: function () {
+      return Session.get("hideChecked");
     }
   });
 
-  Template.chat.events({
-    "submit .new-chat": function(event) {
-      //Prevent default browser form submit
-      event.preventDefault();
+  Template.chatting.events({
+    "submit .newchat": function(event) {
 
-      //Get value from form element
+      if(Meteor.user().username != "Guest") {
+        //Prevent default form submit
+        event.preventDefault();
+
+        //Get text from element
+        var text = event.target.text.value;
+
+        //Insert a message into the collection
+        Meteor.call("addChat", text);
+
+        //Clear element
+        event.target.text.value = "";
+
+      } else {
+        alert("Sorry only registered users can post.");
+      }
+    },
+
+    "change .hide-checked input": function (event) {
+      Session.set("hideChecked", event.target.checked);
+    },
+
+    "click .preview-button": function () {
       var text = event.target.text.value;
-
-      //Insert a message into the collection
-      Meteor.call("addChat", text);
-
-      //Clear form
-      event.target.text.value = "";
+      //Other code
     }
   });
 
@@ -233,9 +259,9 @@ Router.route('/register', {
   }
 });
 
-Router.route('/chat', {
-  template: 'chat',
-  name: 'chat',
+Router.route('/chatting', {
+  template: 'chatting',
+  name: 'chatting',
   onAfterAction: function() {
     return setTitle('Chat Room');
   }

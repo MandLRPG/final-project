@@ -53,6 +53,10 @@ body {
   padding: 10px 5%;
 }
 
+.accessdenied {
+  padding: 10px 5%;
+}
+
 .contact-list {
   position: relative;
   list-style: upper-roman;
@@ -72,7 +76,7 @@ body {
   padding: inherit;
 }
 
-.new-chat input {
+.newchat input {
   box-sizing: border-box;
   padding: 0;
   background: transparent;
@@ -83,7 +87,7 @@ body {
   font-size: 1em;
 }
 
-.new-chat input:focus{
+.newchat input:focus{
   outline: 0;
 }
 
@@ -131,6 +135,11 @@ body {
   font-style: italic;
   font-weight: bold;
   color: white;
+}
+
+#preview-button {
+  position: relative;
+  width: 100%;
 }
 
 #forgot-pw {

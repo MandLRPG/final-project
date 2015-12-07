@@ -83,25 +83,36 @@
 
 
 <!-- 'Chat' page -->
-<template name="chat">
+<template name="chatting">
   {{> navigation}}
   <div class="container">
-    <form class="chat">
-      <h3>Chat with all your friends!</h3>
-      <h4>Play nice and keep it clean.</h4>
-      <hr />
-      <form class="new-chat">
-        <input type="text" name="text" placeholder="Type anything you want as long as it's clean and nice!" />
-      </form>
+    {{#if currentUser}}
+      <div class="chat">
+        <h3>Chat with all your friends!</h3>
+        <h4>Play nice and keep it clean.</h4>
+        <label class="hide-checked">
+          <input type="checkbox" checked="{{hideChecked}}" />
+          Hide checked messages.
+        </label>
+        <hr />
+        <form class="newchat">
+          <input type="text" name="text" placeholder="Type anything you want as long as it's clean and nice!" />
+        </form>
 
-      <form class="chat-box">
-        <ul>
-          {{#each chatlog}}
-          {{> message}}
-          {{/each}}
-        </ul>
-      </form>
-    </form>
+        <form class="chat-box">
+          <ul>
+            {{#each chatlog}}
+            {{> message}}
+            {{/each}}
+          </ul>
+        </form>
+      </div>
+      <button type="button" id="preview-button">Preview Post</button>
+    {{else}}
+      <div class="deniedaccess">
+        <h3>Sorry you don't have access to this page unless you are logged in.</h3>
+      </div>
+    {{/if}}
   </div>
 </template>
 
@@ -182,7 +193,7 @@
         <li class="{{activeIfTemplateIs 'about'}}"><a href="{{pathFor route='about'}}">About</a></li>
         <li class="{{activeIfTemplateIs 'contactus'}}"><a href="{{pathFor route='contactus'}}">Contact Us</a></li>
         {{#if currentUser}}
-          <li class="{{activeIfTemplateIs 'chat'}}"><a href="{{pathFor route='chat'}}">Chat with everyone!</a></li>
+          <li class="{{activeIfTemplateIs 'chatting'}}"><a href="{{pathFor route='chatting'}}">Chat with everyone!</a></li>
         {{/if}}
         <ul class="login-register">
           {{#if currentUser}}
@@ -204,7 +215,9 @@
 
 <template name="message">
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-    <button class="delete">&times;</button>
+    {{#if isOwner}}
+      <button class="delete">&times;</button>
+    {{/if}}
 
     <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
