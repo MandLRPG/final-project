@@ -24,6 +24,7 @@ body {
   min-height: fit-content;
   background: white;
   border-radius: 10px;
+  border: black solid 2px;
   padding: 10px;
 }
 
@@ -32,12 +33,23 @@ body {
   margin-bottom: 5px !important;
 }
 
-#show-password {
-  font-weight: lighter;
+.contactus {
+  padding: 10px 5%;
 }
 
-#display-password {
-  margin-bottom: 3px;
+.register {
+  padding: 10px 5%;
+}
+
+.login {
+  padding: 10px 5%;
+}
+
+.reg-list {
+  position: relative;
+  list-style: upper-roman;
+  padding: 0px;
+  border-bottom: none;
 }
 
 #error404 {
@@ -76,6 +88,10 @@ body {
   color: white;
 }
 
+#forgot-pw {
+  margin-left: 20px;
+}
+
 header {
   background: #d2edf4;
   background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
@@ -96,6 +112,14 @@ h1 {
 }
 
 h2 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+h4 {
   text-align: center;
 }
 

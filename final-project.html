@@ -9,10 +9,6 @@
 
 <!-- Homepage contents -->
 <template name="home">
-  <head>
-    <title>Final Project</title>
-  </head>
-
   <body>
   {{> navigation}}
   <div class="container">
@@ -59,7 +55,27 @@
 <template name="contactus">
   {{> navigation}}
   <div class="container">
-    <p>Where my contact us page goes.</p>
+    <h3>Comments or Issues?  Contact Us! (Well, contact <i>me</i>)</h3>
+    <h4>For all methods of contact, I should respond within 24-48 hours.</h4>
+    <form class="contactus">
+      <p>Email: <a href="mailto:kristophernakamura@outlook.com">kristophernakamura@outlook.com</a></p>
+      <p>Phone (Text or Call): <a href="tel:+1-808-799-7533">1-(808)-799-7533</a></p>
+      <p>Carrier Pidgeon: <a target="_blank" href="https://en.wikipedia.org/wiki/Homing_pigeon">(Not recommended)</a></p>
+      <hr />
+      <p>Please contact only for the following reasons:</p>
+      <ol>
+        <li class="reg-list">Issues with the website.</li>
+        <li class="reg-list">Questions about the website.</li>
+        <li class="reg-list">Career recruitment interests.</li>
+      </ol>
+    </form>
+  </div>
+</template>
+
+<template name="chat">
+  {{> navigation}}
+  <div class="container">
+    <!-- Build a chat platform like Slack here -->
   </div>
 </template>
 
@@ -67,13 +83,13 @@
 <template name="register">
   {{> navigation}}
   <div class="container">
-    <p>Where my registration page goes.</p>
+    <h3>Register for my website to access specific content</h3>
     <form class="register">
       <p>Username: <input type="text" name="username"></p>
       <p>Email: <input type="email" name="email"></p>
       <p>Password: <input type="password" name="password"></p>
       <p>Re-enter Password: <input type="password" name="password2"></p>
-      <p><input type="submit" value="Register"></p>
+      <p><input type="submit" id="reg-button" value="Register"></p>
     </form>
   </div>
 </template>
@@ -82,11 +98,12 @@
 <template name="login">
   {{> navigation}}
   <div class="container">
-    <p>Where my login page goes.</p>
+    <h3>Login as a Registered User or a Guest</h3>
     <form class="login">
       <p>Email: <input type="email" name="email"></p>
       <p>Password: <input type="password" name="password"></p>
-      <p><input type="submit" value="Login"></p>
+      <p><input type="submit" value="Login"><button type="button" id="forgot-pw">Forgot Password?</button></p>
+      <p><input type="button" id="guest-login" value="Login as Guest (less functionality)"></p>
     </form>
   </div>
 </template>
@@ -146,12 +163,15 @@
         <li class="{{activeIfTemplateIs 'home'}}"><a href="{{pathFor route='home'}}">Home</a></li>
         <li class="{{activeIfTemplateIs 'about'}}"><a href="{{pathFor route='about'}}">About</a></li>
         <li class="{{activeIfTemplateIs 'contactus'}}"><a href="{{pathFor route='contactus'}}">Contact Us</a></li>
+        {{#if currentUser}}
+          <li class="{{activeIfTemplateIs 'chat'}}"><a href="{{pathFor route='chat'}}">Chat with everyone!</a></li>
+        {{/if}}
         <ul class="login-register">
           {{#if currentUser}}
-          <li class="navbar"><a href="#" class="logout">Logout</a></li>
+            <li class="navbar"><a href="#" class="logout">Logout</a></li>
           {{else}}
-          <li class="{{activeIfTemplateIs 'register'}}"><a href="{{pathFor route='register'}}">Register</a></li>
-          <li class="{{activeIfTemplateIs 'login'}}"><a href="{{pathFor route='login'}}">Login</a></li>
+            <li class="{{activeIfTemplateIs 'register'}}"><a href="{{pathFor route='register'}}">Register</a></li>
+            <li class="{{activeIfTemplateIs 'login'}}"><a href="{{pathFor route='login'}}">Login</a></li>
           {{/if}}
         </ul>
       </div>

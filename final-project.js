@@ -146,6 +146,16 @@ if (Meteor.isClient) {
           Router.go('about');
         }
       });
+    },
+
+    'click #guest-login': function(event) {
+      Meteor.loginWithPassword('Guest', 'Guest', function(error) {
+        if(error) {
+          console.log(error.reason);
+        } else {
+          Router.go('about');
+        }
+      });
     }
   });
 
@@ -243,24 +253,56 @@ if (Meteor.isServer) {
 
 Router.route('/', {
   name: 'home',
-  template: 'home'
+  template: 'home',
+  onAfterAction: function() {
+    return setTitle('Home');
+  }
 });
 
 Router.route('/about', {
-  template: 'about'
+  template: 'about',
+  onAfterAction: function() {
+    return setTitle('About');
+  }
 });
 
 Router.route('/register', {
   template: 'register',
-  name: 'register'
+  name: 'register',
+  onAfterAction: function() {
+    return setTitle('Register');
+  }
+});
+
+Router.route('/chat', {
+  template: 'chat',
+  name: 'chat',
+  onAfterAction: function() {
+    return setTitle('Chat Room');
+  }
 });
 
 Router.route('/login', {
   template: 'login',
-  name: 'login'
+  name: 'login',
+  onAfterAction: function() {
+    return setTitle('Login');
+  }
 });
 
 Router.route('/contactus', {
   template: 'contactus',
-  name: 'contactus'
+  name: 'contactus',
+  onAfterAction: function() {
+    return setTitle('Contact Us');
+  }
 });
+
+//Sets the title 'dynamically' on each page
+this.setTitle = function(title) {
+  if(title) {
+    return document.title = title;
+  } else {
+    return "Kris's Page";
+  }
+};
