@@ -158,7 +158,11 @@ if (Meteor.isClient) {
   Template.navItems.helpers({
     activeIfTemplateIs: function(template) {
       var currentRoute = Router.current();
-      if(currentRoute === null || template !== currentRoute.lookupTemplate()) {
+      console.log(template);
+      console.log(currentRoute);
+      if(currentRoute === null || currentRoute.route === undefined) {
+        return 'navbar';
+      } else if(template !== currentRoute.lookupTemplate()) {
         return 'navbar';
       }
       return 'navbar active';
